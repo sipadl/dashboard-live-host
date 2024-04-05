@@ -1,2 +1,2 @@
-@include('template.header')
-@include('template.footer')
+@include('template.header2')
+@include('template.footer2')

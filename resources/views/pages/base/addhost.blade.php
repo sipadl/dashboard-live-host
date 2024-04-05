@@ -1,93 +1,80 @@
 @extends('template.master')
+
 @section('main')
-
-<div class="">
-    <h4>Update Host</h4>
-</div>
-
-
-<hr>
-<div class="flex">
-    <form action="{{ route('main.admin.host.post') }}" method="post" enctype="multipart/form-data">
-        @csrf
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">Tambah Host</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
         @if(session()->has('success'))
-        <div class="col-md-11">
+        <div class="col-md-12">
             <div class="alert alert-success" role="alert">
                 {{ session('success') }}
             </div>
         </div>
         @endif
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Nama Host</label>
-            </div>
-                <input type="text" placeholder="Nama Host" required name="name" class="form-control col-md-9">
-        </div>
+        <form action="{{ route('main.admin.host.post') }}" method="post" enctype="multipart/form-data">
+            @csrf
 
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Usia Host</label>
+            <div class="form-group">
+                <label for="name">Nama Host</label>
+                <input type="text" placeholder="Nama Host" required name="name" class="form-control">
             </div>
-            <div class="col-md-9 custom-file ">
-                <div class="mb-3">
-                    <input required type="file" name="images" class="custom-file-input" id="customFile">
-                    <label class="custom-file-label" for="customFile">Choose file</label>
+
+            <div class="form-group">
+                <label for="images">Gambar Host</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="images" class="custom-file-input" id="customFile" required>
+                        {{-- <label class="custom-file-label" for="customFile">Pilih gambar</label> --}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Usia Host</label>
+
+            <div class="form-group">
+                <label for="age">Usia Host</label>
+                <input type="number" min="0" placeholder="Usia Host" required name="age" class="form-control">
             </div>
-                <input type="number" min=0 placeholder="Usia Host" required name="age" class="form-control col-md-9">
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Jenis Kelamin Host</label>
+
+            <div class="form-group">
+                <label for="gender">Jenis Kelamin Host</label>
+                <select name="gender" class="form-control">
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
             </div>
-            <select name="gender" id="" class="form-control col-md-9">
-                <option value="Laki-laki">Laki-laki</option>
-                <option value="Perempuan">Perempuan</option>
-            </select>
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Hari Kerja</label>
+
+            <div class="form-group">
+                <label for="days">Hari Kerja</label>
+                <input type="number" min="0" placeholder="Hari Kerja" required name="days" class="form-control">
             </div>
-            <input type="number" min=0 placeholder="Hari Kerja" required name="days" class="form-control col-md-9">
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Alamat Host</label>
+
+            <div class="form-group">
+                <label for="address">Alamat Host</label>
+                <textarea rows="4" placeholder="Alamat Host" required name="address" class="form-control"></textarea>
             </div>
-                <textarea rows="4" type="text" placeholder="Alamat Host" required name="address" class="form-control col-md-9"></textarea>
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">No Hanphone</label>
+
+            <div class="form-group">
+                <label for="hanphone">No Hanphone</label>
+                <input type="text" placeholder="No Hanphone" required name="hanphone" class="form-control">
             </div>
-                <input type="text" placeholder="No Hanphone" required name="hanphone" class="form-control col-md-9">
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Niche Lainnya</label>
+
+            <div class="form-group">
+                <label for="niche">Niche Lainnya</label>
+                <textarea rows="4" placeholder="Niche Lainnya" required name="niche" class="form-control"></textarea>
             </div>
-                <textarea rows="4" type="text" placeholder="Niche Lainnya" required name="niche" class="form-control col-md-9"></textarea>
-        </div>
-        <div class="row input mb-2">
-            <div class="label col-md-2">
-                <label for="" class="m-2">Lain-lain</label>
+
+            <div class="form-group">
+                <label for="other">Lain-lain</label>
+                <textarea rows="4" placeholder="Lain-lain" required name="other" class="form-control"></textarea>
             </div>
-                <textarea rows="4" type="text" placeholder="Lain-lainn" required name="other" class="form-control col-md-9"></textarea>
-        </div>
-        <div class="row input">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-                <div class="mt-2" style="float: right">
-                    <button class="btn btn-primary btn-lg" type="submit">Simpan Data</button>
-                </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Simpan Data</button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
+    <!-- /.box-body -->
 </div>
 @endsection
