@@ -56,7 +56,7 @@
 
             <div class="form-group">
                 <label for="hanphone">No Hanphone</label>
-                <input type="text" value="{{$data->handphone}}" placeholder="No Hanphone" required name="hanphone" class="form-control">
+                <input type="text" value="{{$data->hanphone}}" placeholder="No Hanphone" required name="hanphone" class="form-control">
             </div>
 
             <div class="form-group">

@@ -145,7 +145,7 @@ class MainController extends Controller
 
             $file->move(base_path('public/'.$dir), $newName);
 
-            return $dir.'.'.$newName;
+            return $dir.'/'.$newName;
         } else {
             return null;
         }

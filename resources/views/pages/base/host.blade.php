@@ -37,13 +37,13 @@
                     @foreach($data as $host)
                     <tr>
                         <td>{{ $i++ }}</td>
-                        <td>{{ $host->images }}</td>
+                        <td><img src="{{ @asset($host->image)}}" class="img-responsive img-thumbnail" width="60" height="60" alt="..."></td>
                         <td>{{ $host->name }}</td>
                         <td>{{ $host->age }}</td>
                         <td>{{ $host->kelamin }}</td>
                         <td>{{ $host->address }}</td>
                         <td>{{ $host->days }}</td>
-                        <td>{{ $host->handphone }}</td>
+                        <td>{{ $host->hanphone }}</td>
                         <td>{{ $host->niche }}</td>
                         <td>{{ $host->other }}</td>
                         <td>{{ $host->created_at->format('Y-m-d') }}</td>
