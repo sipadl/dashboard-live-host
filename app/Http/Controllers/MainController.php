@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Host;
+use App\Models\Lists;
 use App\Models\Client;
 
 
@@ -150,4 +151,27 @@ class MainController extends Controller
             return null;
         }
     }
+
+    public function schedule($id) {
+        $data = Client::where('id', $id)->first();
+        $list = Lists::where('client', $id)->get();
+        return view('pages.client.jadwal', compact('data', 'list'));
+    }
+
+    public function postJadwal($id, Request $request) {
+        $post = $request->except('_token');
+        $post['client'] = $id;
+
+        Lists::create($post);
+        return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan.');
+    }
+
+    public function updateJadwal($id , Request $request) {
+        $list = Lists::where('id', $id)->first();
+
+        $list->update($request->except('_token'));
+        return redirect()->back()->with('success', 'Jadwal berhasil diubah.');
+
+    }
+
 }

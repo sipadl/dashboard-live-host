@@ -31,6 +31,9 @@ Route::prefix('/admin')->group(function () {
 
 Route::prefix('client')->group(function () {
     Route::get('/',[App\Http\Controllers\MainController::class, 'client'])->name('client');
+    Route::get('/schedule/{id}',[App\Http\Controllers\MainController::class, 'schedule'])->name('client.jadwal');
+    Route::post('post/schedule/{id}',[App\Http\Controllers\MainController::class, 'postJadwal'])->name('client.jadwal.post');
+    Route::post('post/schedule/{id}/update', [App\Http\Controllers\MainController::class,'updateJadwal'])->name('jadwal.put');
     Route::get('/new',[App\Http\Controllers\MainController::class, 'newClient'])->name('client.new');
     Route::get('/{id}/delete',[App\Http\Controllers\MainController::class, 'deleteClient'])->name('client.delete');
     Route::get('/{id}/update',[App\Http\Controllers\MainController::class, 'updateClient'])->name('client.update');
