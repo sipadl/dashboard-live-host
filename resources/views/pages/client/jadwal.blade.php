@@ -46,12 +46,14 @@
                                         type="date"
                                         class="form-control"
                                         id="harga"
-                                        placeholder="Masukkan Harga"
+                                        placeholder="Masukkan Tanggal"
+                                        requred
                                         name="tanggal"></div>
                                 <div class="form-group">
                                     <label for="harga">Harga:</label>
                                     <input
                                         type="text"
+                                        required
                                         class="form-control"
                                         id="harga"
                                         placeholder="Masukkan Harga"
@@ -71,7 +73,7 @@
                                     </div>
                                         <div class="form-group">
                                             <label for="notes">Notes:</label>
-                                            <input type="text" name="jadwal_notes" class="form-control" id="notes" placeholder="Masukkan Notes"></div>
+                                            <input type="text" required name="jadwal_notes" class="form-control" id="notes" placeholder="Masukkan Notes"></div>
                                             <div class="form-group">
                                             <label for="paymentStatus">Payment Status:</label>
                                             <select name="payment_status" class="form-control" id="">
@@ -174,12 +176,12 @@
 
                                                                                         <div class="form-group">
                                                                                             <label for="harga">Harga</label>
-                                                                                            <input type="text" class="form-control" id="harga" name="harga" value="{{ $ls->harga }}">
+                                                                                            <input required type="text" class="form-control" id="harga" name="harga" value="{{ $ls->harga }}">
                                                                                         </div>
                                                                                         <div class="form-group">
                                                                                             <label for="paymentStatus">Payment Status:</label>
                                                                                             <select name="live_status" class="form-control" id="">
-                                                                                                <option value="Selesai" {{ $ls->payment_status == 'Lunas' ? 'selected' : '' }}>Lunas</option>
+                                                                                                <option value="Selesai" {{ $ls->payment_status == 'Lunasgk' ? 'selected' : '' }}>Lunas</option>
                                                                                                 <option value="Pending" {{ $ls->payment_status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                                                                             </select>
                                                                                         </div>
