@@ -46,7 +46,6 @@
                         <td>{{ $host->name }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{route('client.jadwal', [$client->id])}}" class="mx-1 btn btn-primary btn-sm">Schedule</a>
                                 <a href="{{route('client.update', [$client->id])}}" class="mx-1 btn btn-warning btn-sm">Update</a>
                                 <a href="{{route('client.delete', [$client->id])}}" class="mx-1 btn btn-danger btn-sm">Delete</a>
                             </div>

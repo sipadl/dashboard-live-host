@@ -103,7 +103,8 @@ class MainController extends Controller
 
     public function host() {
         $data = Host::get();
-        return view('pages.base.host', compact('data'));
+        $lists = Lists::get();
+        return view('pages.base.host', compact('data','lists'));
     }
 
     public function newHost() {
@@ -153,15 +154,14 @@ class MainController extends Controller
     }
 
     public function schedule($id) {
-        $data = Client::where('id', $id)->first();
+        $data = Host::where('id', $id)->first();
+        $client = Client::get();
         $list = Lists::where('client', $id)->get();
-        return view('pages.client.jadwal', compact('data', 'list'));
+        return view('pages.client.jadwal', compact('data', 'list','client'));
     }
 
     public function postJadwal($id, Request $request) {
         $post = $request->except('_token');
-        $post['client'] = $id;
-
         Lists::create($post);
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan.');
     }

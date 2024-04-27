@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('harga');
             $table->date('tanggal');
+            $table->date('sampai_tanggal');
             $table->string('live_session');
             $table->string('client');
             $table->string('jadwal_notes');

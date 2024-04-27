@@ -1,27 +1,27 @@
 @extends('template.master')
 @section('main')
-<style>
-    .mx {
-        margin-left: 2rem;
-        margin-right: 2rem;
-    }
-</style>
+
 <div class = "" > <div class="row">
     <div class="col-xs-12">
         <div class="box">
+            <div class="row" style="margin-left:8px">
+                <div class="col-xs-2">
             <div class="box-header mx">
                 <h3 class="box-title">Kalender Jadwal</h3>
             </div>
             <!-- Button trigger modal -->
-            <button
-                type="button"
-                class="btn btn-primary mx"
-                data-toggle="modal"
-                data-target="#inputModal">
-                Tambah Jadwal
-            </button>
+                    <button
+                        type="button"
+                        class="btn btn-primary mx"
+                        data-toggle="modal"
+                        data-target="#inputModal">
+                        Tambah Jadwal
+                    </button>
+                </div>
 
+            </div>
             <!-- Modal -->
+
             <div
                 class="modal fade"
                 id="inputModal"
@@ -41,7 +41,7 @@
                         <form action="{{ route('client.jadwal.post', [$data->id])}}" method="POST">
                             @csrf
                                 <div class="form-group">
-                                    <label for="harga">Tanggal:</label>
+                                    <label for="harga">Dari Tanggal:</label>
                                     <input
                                         type="date"
                                         class="form-control"
@@ -49,6 +49,29 @@
                                         placeholder="Masukkan Tanggal"
                                         requred
                                         name="tanggal"></div>
+                                <div class="form-group">
+                                    <label for="harga">Sampai Tanggal:</label>
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        id="harga"
+                                        placeholder="Masukkan Tanggal"
+                                        requred
+                                        name="sampai_tanggal"></div>
+                                <div class="form-group">
+                                    <label for="harga">Client:</label>
+                                    <select
+                                        type="text"
+                                        class="form-control"
+                                        id="harga"
+                                        placeholder="Masukkan Client"
+                                        requred
+                                        name="client">
+                                        @foreach($client as $c)
+                                        <option value="{{$c->id}}">{{$c->nama_client}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="form-group">
                                     <label for="harga">Harga:</label>
                                     <input
@@ -124,10 +147,9 @@
 
                                                     @foreach($list as $ls)
                                                         @php
-
                                                             if ($ls->live_session == $t) {
                                                                 $matched = true;
-                                                                $host = DB::table('hosts')->where('id', $data->host_terpilih)->first();
+                                                                $host = DB::table('clients')->where('id', $data->id)->first();
                                                                 $sum += $ls->harga;
                                                             }
                                                         @endphp
@@ -136,10 +158,10 @@
                                                             <tr>
                                                                 <td>{{ $ls->harga }}</td>
                                                                 <td>{{ $ls->live_session }}</td>
-                                                                <td>{{ $data->nama_client }}</td>
-                                                                <td>{{ $ls->tanggal }}</td>
-                                                                <td>{{ $host ? $host->name : '' }}</td>
-                                                                <td>{{ $data->hanphone_client }}</td>
+                                                                <td>{{ $host->nama_client }}</td>
+                                                                <td>{{ $ls->tanggal .' s/d '. $ls->sampai_tanggal .', Notes : '. $ls->notes }}</td>
+                                                                <td>{{ $data->name }}</td>
+                                                                <td>{{ $data->hanphone }}</td>
                                                                 <td>{{ $ls->payment_status }}</td>
                                                                 <td>{{ $ls->live_status }}</td>
                                                                 <td>
@@ -162,6 +184,26 @@
                                                                                         @csrf
                                                                                         <!-- Masukkan input untuk setiap kolom yang ingin diedit -->
                                                                                         <div class="form-group">
+                                                                                        <label for="harga">Dari Tanggal:</label>
+                                                                                        <input
+                                                                                            type="date"
+                                                                                            class="form-control"
+                                                                                            id="harga"
+                                                                                            placeholder="Masukkan Tanggal"
+                                                                                            requred
+                                                                                            value={{$ls->tanggal}}
+                                                                                            name="tanggal"></div>
+                                                                                        <div class="form-group">
+                                                                                        <label for="harga">Sampai Tanggal:</label>
+                                                                                        <input
+                                                                                            type="date"
+                                                                                            class="form-control"
+                                                                                            id="harga"
+                                                                                            placeholder="Masukkan Tanggal"
+                                                                                            requred
+                                                                                            value={{$ls->sampai_tanggal}}
+                                                                                            name="sampai_tanggal"></div>
+                                                                                        <div class="form-group">
                                                                                             <label for="jadwal">Jadwal:</label>
                                                                                             <select class="form-control" id="jadwal" name="live_session">
                                                                                                 <option value="08-10" {{ $ls->live_session == '08-10' ? 'selected' : '' }}>08:00 - 10:00</option>
@@ -178,6 +220,9 @@
                                                                                             <label for="harga">Harga</label>
                                                                                             <input required type="text" class="form-control" id="harga" name="harga" value="{{ $ls->harga }}">
                                                                                         </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="notes">Notes:</label>
+                                                                                            <input type="text" required name="jadwal_notes" class="form-control" id="notes" value="{{$ls->jadwal_notes}}" placeholder="Masukkan Notes"></div>
                                                                                         <div class="form-group">
                                                                                             <label for="paymentStatus">Payment Status:</label>
                                                                                             <select name="live_status" class="form-control" id="">
