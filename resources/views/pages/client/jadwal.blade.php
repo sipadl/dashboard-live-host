@@ -5,9 +5,9 @@
     <div class="col-xs-12">
         <div class="box">
             <div class="row" style="margin-left:8px">
-                <div class="col-xs-2">
+                <div class="col-xs-1" style="margin: 0px 10px 10px 10px">
             <div class="box-header mx">
-                <h3 class="box-title">Kalender Jadwal</h3>
+                {{-- <h3 class="box-title">Kalender Jadwal</h3> --}}
             </div>
             <!-- Button trigger modal -->
                     <button
@@ -18,7 +18,100 @@
                         Tambah Jadwal
                     </button>
                 </div>
+                <style>
+                    .mx {
+                        margin-left: 2rem;
+                        margin-right: 2rem;
+                    }
+                    table .tables2 {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
 
+                        th, td {
+                            /* border: 1px solid #ddd; */
+                            padding: 10px;
+                            text-align: center;
+                        }
+
+                        th {
+                            background-color: #f2f2f2;
+                        }
+                        .event {
+                            background-color: lightgreen;
+                        }
+
+                        td {
+                            height: 10px;
+                        }
+
+                        .empty-cell {
+                            background-color: #f9f9f9;
+                        }
+                </style>
+                <div class="col-xs-3" style="margin: 19px 10px 10px 10px">
+                    @php
+                        $bulan = date('n');
+                        $tahun = date('Y');
+                    @endphp
+                    <table class="tables2">
+                        <thead>
+                        <tr>
+                            <th>Senin</th>
+                            <th>Selasa</th>
+                            <th>Rabu</th>
+                            <th>Kamis</th>
+                            <th>Jumat</th>
+                            <th>Sabtu</th>
+                            <th>Minggu</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $currentMonth = date('n');
+                                $currentYear = date('Y');
+                                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+                                $firstDayOfMonth = date('N', strtotime("$currentYear-$currentMonth-01"));
+                                $date = 1;
+                                $events = []; // Inisialisasi array events
+
+                                // Memasukkan tanggal-tanggal dari semua events ke dalam array $events
+                                foreach ($list as $ls) {
+                                    // Ambil tanggal awal dan tanggal akhir event
+                                    $startDate = date('j', strtotime($ls['tanggal']));
+                                    $endDate = date('j', strtotime($ls['sampai_tanggal']));
+
+                                    // Tambahkan semua tanggal antara tanggal awal dan tanggal akhir ke dalam array $events
+                                    for ($d = $startDate; $d <= $endDate; $d++) {
+                                        $events[] = $d;
+                                    }
+                                }
+                            @endphp
+                            @for ($i = 0; $i < 6; $i++)
+                                <tr>
+                                    @for ($j = 0; $j < 7; $j++)
+                                        @if ($i == 0 && $j < $firstDayOfMonth)
+                                            <td class="empty-cell"></td>
+                                        @elseif ($date > $daysInMonth)
+                                            <td class="empty-cell"></td>
+                                        @else
+                                            {{-- Periksa apakah tanggal ada dalam array events --}}
+                                            @if (in_array($date, $events))
+                                                <td class="event">{{ $date }}</td>
+                                            @else
+                                                <td>{{ $date }}</td>
+                                            @endif
+                                            @php
+                                                $date++;
+                                            @endphp
+                                        @endif
+                                    @endfor
+                                </tr>
+                            @endfor
+                        </tbody>
+
+                    </table>
+                </div>
             </div>
             <!-- Modal -->
 
@@ -126,7 +219,8 @@
                                                     <th>Harga</th>
                                                     <th>Live Session</th>
                                                     <th>Client</th>
-                                                    <th>Jadwal + Notes</th>
+                                                    <th width="80px">Jadwal</th>
+                                                    <th>Notes</th>
                                                     <th>Nama</th>
                                                     <th>WA</th>
                                                     <th>Payment Status</th>
@@ -159,7 +253,63 @@
                                                                 <td>{{ $ls->harga }}</td>
                                                                 <td>{{ $ls->live_session }}</td>
                                                                 <td>{{ $host->nama_client }}</td>
-                                                                <td>{{ $ls->tanggal .' s/d '. $ls->sampai_tanggal .', Notes : '. $ls->notes }}</td>
+                                                                <td>
+                                                                <table>
+                                                                    <thead>
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Senin</th>
+                                                                                <th>Selasa</th>
+                                                                                <th>Rabu</th>
+                                                                                <th>Kamis</th>
+                                                                                <th>Jumat</th>
+                                                                                <th>Sabtu</th>
+                                                                                <th>Minggu</th>
+                                                                            </tr>
+                                                                            </thead>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        @php
+                                                                            $currentMonth = date('n');
+                                                                            $currentYear = date('Y');
+                                                                            $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+                                                                            $firstDayOfMonth = date('N', strtotime("$currentYear-$currentMonth-01"));
+                                                                            $date = 1;
+                                                                            $waktu = [];
+                                                                            // Ambil tanggal awal dan tanggal akhir event
+                                                                            $startDate = date('j', strtotime($ls['tanggal']));
+                                                                            $endDate = date('j', strtotime($ls['sampai_tanggal']));
+
+                                                                            // Tambahkan semua tanggal antara tanggal awal dan tanggal akhir ke dalam array $events
+                                                                            for ($d = $startDate; $d <= $endDate; $d++) {
+                                                                                $waktu[] = $d;
+                                                                            }
+                                                                        @endphp
+                                                                        @for ($i = 0; $i < 6; $i++)
+                                                                        <tr>
+                                                                            @for ($j = 0; $j < 7; $j++)
+                                                                                @if ($i == 0 && $j < $firstDayOfMonth)
+                                                                                    <td class="empty-cell"></td>
+                                                                                @elseif ($date > $daysInMonth)
+                                                                                    <td class="empty-cell"></td>
+                                                                                @else
+                                                                                    {{-- Periksa apakah tanggal ada dalam array events --}}
+                                                                                    @if (in_array($date, $waktu))
+                                                                                        <td class="event">{{ $date }}</td>
+                                                                                    @else
+                                                                                        <td>{{ $date }}</td>
+                                                                                    @endif
+                                                                                    @php
+                                                                                        $date++;
+                                                                                    @endphp
+                                                                                @endif
+                                                                            @endfor
+                                                                        </tr>
+                                                                    @endfor
+                                                                </tbody>
+                                                                </table>
+                                                                </td>
+                                                                <td>{{ $ls->jadwal_notes }}</td>
                                                                 <td>{{ $data->name }}</td>
                                                                 <td>{{ $data->hanphone }}</td>
                                                                 <td>{{ $ls->payment_status }}</td>
