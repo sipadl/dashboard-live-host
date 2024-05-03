@@ -18,8 +18,9 @@
 <th>Harga</th>
 <th>Live Session</th>
 <th>Client</th>
+<th>WA</th>
 <th>Notes</th>
-<th>Nama</th>
+<th>Host</th>
 <th>Dari Tanggal</th>
 <th>Sampai Tanggal</th>
 <th>Durasi</th>
@@ -68,14 +69,11 @@ $sum += $ls->harga * $days;
 <td>{{ $ls->harga }}</td>
 <td>{{ $ls->live_session }}</td>
 <td>{{ $host->nama_client }}</td>
+<td>{{ $host->hanphone_client }}</td>
 <td>{{ $ls->jadwal_notes }}</td>
 <td>{{ $data->name }}</td>
 <td>{{ $ls->tanggal }}</td>
 <td>{{ $ls->sampai_tanggal }}</td>
-<?php
-// Assuming $ls->tanggal and $ls->sampai_tanggal are datetime strings
-
-?>
 <td>{{ $days }}</td>
 <td>{{ $days * $ls->harga }}</td>
 <td>{{ $ls->payment_status }}</td>
