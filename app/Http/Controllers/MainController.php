@@ -180,11 +180,11 @@ class MainController extends Controller
 
     }
 
-    public function totalHarga($id) {
-        $data = Host::where('id', $id)->first();
+    public function totalHarga() {
+        // $data = Host::where()->first();
         $client = Client::get();
-        $list = Lists::where('host', $data->id)->get();
-        return view('pages.client.total', compact('data','list','client'));
+        $list = Lists::get();
+        return view('pages.client.total', compact('list','client'));
     }
 
 }
