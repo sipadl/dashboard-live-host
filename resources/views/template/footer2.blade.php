@@ -244,5 +244,41 @@
 <script>
     let table = new DataTable('#myTable');
 </script>
+
+<script>
+    function prevMonth() {
+        var monthSelect = document.getElementById('month');
+        var yearSelect = document.getElementById('year');
+
+        if (monthSelect.selectedIndex === 0) {
+            monthSelect.selectedIndex = 11;
+            yearSelect.selectedIndex -= 1;
+        } else {
+            monthSelect.selectedIndex -= 1;
+        }
+    }
+
+    function nextMonth() {
+        var monthSelect = document.getElementById('month');
+        var yearSelect = document.getElementById('year');
+
+        if (monthSelect.selectedIndex === 11) {
+            monthSelect.selectedIndex = 0;
+            yearSelect.selectedIndex += 1;
+        } else {
+            monthSelect.selectedIndex += 1;
+        }
+    }
+
+    function go() {
+        var monthSelect = document.getElementById('month');
+        var yearSelect = document.getElementById('year');
+
+        var selectedMonth = monthSelect.options[monthSelect.selectedIndex].value;
+        var selectedYear = yearSelect.options[yearSelect.selectedIndex].value;
+
+        window.location.href = "?month=" + selectedMonth + "&year=" + selectedYear;
+    }
+</script>
 </body>
 </html>

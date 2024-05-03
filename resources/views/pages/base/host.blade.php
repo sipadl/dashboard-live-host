@@ -123,7 +123,7 @@
                         <th style="width: 150px;">Niche</th>
                         <th style="width: 200px;">Lain lainnya</th>
                         <th style="width: 150px;">Tgl Daftar</th>
-                        <th style="width: 100px;">Action</th>
+                        <th style="width: 200px;">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -143,9 +143,10 @@
                         <td>{{ $host->created_at->format('Y-m-d') }}</td>
                         <td>
                             <div class="d-flex">
-                                <a href="{{route('client.jadwal', [$host->id])}}" class="mx-1 btn btn-primary btn-sm">Schedule</a>
-                                <a href="{{route('main.admin.host.update', [$host->id])}}" class="mx-1 btn btn-warning btn-sm">Update</a>
-                                <a href="{{route('main.admin.host.delete', [$host->id])}}" class="mx-1 btn btn-danger btn-sm">Delete</a>
+                                <a href="{{route('client.total', [$host->id])}}" class="mx-1 btn btn-primary btn-sm mt-4">Data Harga</a>
+                                <a href="{{route('client.jadwal', [$host->id])}}" class="mx-1 btn btn-primary btn-sm mt-4">Schedule</a>
+                                <a href="{{route('main.admin.host.update', [$host->id])}}" class="mx-1 btn btn-warning btn-sm mt-4">Update</a>
+                                <a href="{{route('main.admin.host.delete', [$host->id])}}" class="mx-1 btn btn-danger btn-sm mt-4">Delete</a>
                             </div>
                         </td>
                     </tr>

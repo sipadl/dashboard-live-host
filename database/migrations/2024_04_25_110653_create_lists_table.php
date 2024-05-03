@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('sampai_tanggal');
             $table->string('live_session');
             $table->string('client');
+            $table->string('host');
             $table->string('jadwal_notes');
             $table->string('payment_status');
             $table->string('live_status');

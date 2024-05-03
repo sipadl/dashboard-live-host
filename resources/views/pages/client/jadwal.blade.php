@@ -49,13 +49,65 @@
                             background-color: #f9f9f9;
                         }
                 </style>
-                <div class="col-xs-3" style="margin: 19px 10px 10px 10px">
-                    @php
-                        $bulan = date('n');
-                        $tahun = date('Y');
-                    @endphp
-                    <table class="tables2">
-                        <thead>
+               <div class="col-xs-3" style="margin: 19px 10px 10px 10px">
+                @php
+                    // Ambil bulan dan tahun yang ditampilkan
+                    if(isset($_GET['month']) && isset($_GET['year'])){
+                        $currentMonth = $_GET['month'];
+                        $currentYear = $_GET['year'];
+                    } else {
+                        $currentMonth = date('n');
+                        $currentYear = date('Y');
+                    }
+
+                    // Hitung jumlah hari dalam bulan dan hari pertama dalam bulan
+                    $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
+                    $firstDayOfMonth = date('N', strtotime("$currentYear-$currentMonth-01"));
+                    $date = 1;
+                    $events = []; // Inisialisasi array events
+
+                    // Memasukkan tanggal-tanggal dari semua events ke dalam array $events
+                    foreach ($list as $ls) {
+                        // Ambil tanggal awal dan tanggal akhir event
+                        $startDate = date('j', strtotime($ls['tanggal']));
+                        $endDate = date('j', strtotime($ls['sampai_tanggal']));
+                        $eventMonth = date('n', strtotime($ls['tanggal']));
+                        $eventYear = date('Y', strtotime($ls['tanggal']));
+
+                        // Cek apakah event berada dalam bulan yang dipilih
+                        if ($eventMonth == $currentMonth && $eventYear == $currentYear) {
+                            // Tambahkan semua tanggal antara tanggal awal dan tanggal akhir ke dalam array $events
+                            for ($d = $startDate; $d <= $endDate; $d++) {
+                                $events[] = $d;
+                            }
+                        }
+                    }
+                @endphp
+
+                <table class="table table-bordeless">
+                    <thead>
+                        <tr>
+                            <th colspan="4">
+                                <!-- Input bulan -->
+                                <input type="text" class="form-control" value="{{ date('F', mktime(0, 0, 0, $currentMonth, 1)) }}" readonly>
+                            </th>
+                            <th colspan="3">
+                                <!-- Input tahun -->
+                                <input type="text" class="form-control" value="{{ $currentYear }}" readonly>
+                            </th>
+                        </tr>
+                        <tr>
+                            <!-- Tombol panah ke bulan sebelumnya -->
+                            <td colspan="4">
+                                <a href="?month={{ ($currentMonth == 1) ? 12 : $currentMonth - 1 }}&year={{ ($currentMonth == 1) ? $currentYear - 1 : $currentYear }}" class="btn btn-secondary">&lt; Previous</a>
+                            </td>
+
+                            <!-- Tombol panah ke bulan berikutnya -->
+                            <td colspan="4">
+                                <a href="?month={{ ($currentMonth == 12) ? 1 : $currentMonth + 1 }}&year={{ ($currentMonth == 12) ? $currentYear + 1 : $currentYear }}" class="btn btn-secondary">Next &gt;</a>
+                            </td>
+
+                        </tr>
                         <tr>
                             <th>Senin</th>
                             <th>Selasa</th>
@@ -65,53 +117,35 @@
                             <th>Sabtu</th>
                             <th>Minggu</th>
                         </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $currentMonth = date('n');
-                                $currentYear = date('Y');
-                                $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $currentMonth, $currentYear);
-                                $firstDayOfMonth = date('N', strtotime("$currentYear-$currentMonth-01"));
-                                $date = 1;
-                                $events = []; // Inisialisasi array events
+                    </thead>
+                    <tbody>
 
-                                // Memasukkan tanggal-tanggal dari semua events ke dalam array $events
-                                foreach ($list as $ls) {
-                                    // Ambil tanggal awal dan tanggal akhir event
-                                    $startDate = date('j', strtotime($ls['tanggal']));
-                                    $endDate = date('j', strtotime($ls['sampai_tanggal']));
 
-                                    // Tambahkan semua tanggal antara tanggal awal dan tanggal akhir ke dalam array $events
-                                    for ($d = $startDate; $d <= $endDate; $d++) {
-                                        $events[] = $d;
-                                    }
-                                }
-                            @endphp
-                            @for ($i = 0; $i < 6; $i++)
-                                <tr>
-                                    @for ($j = 0; $j < 7; $j++)
-                                        @if ($i == 0 && $j < $firstDayOfMonth)
-                                            <td class="empty-cell"></td>
-                                        @elseif ($date > $daysInMonth)
-                                            <td class="empty-cell"></td>
+                        @for ($i = 0; $i < 6; $i++)
+                            <tr>
+                                @for ($j = 0; $j < 7; $j++)
+                                    @if ($i == 0 && $j < $firstDayOfMonth)
+                                        <td class="empty-cell"></td>
+                                    @elseif ($date > $daysInMonth)
+                                        <td class="empty-cell"></td>
+                                    @else
+                                        {{-- Periksa apakah tanggal ada dalam array events --}}
+                                        @if (in_array($date, $events))
+                                            <td class="event">{{ $date }}</td>
                                         @else
-                                            {{-- Periksa apakah tanggal ada dalam array events --}}
-                                            @if (in_array($date, $events))
-                                                <td class="event">{{ $date }}</td>
-                                            @else
-                                                <td>{{ $date }}</td>
-                                            @endif
-                                            @php
-                                                $date++;
-                                            @endphp
+                                            <td>{{ $date }}</td>
                                         @endif
-                                    @endfor
-                                </tr>
-                            @endfor
-                        </tbody>
+                                        @php
+                                            $date++;
+                                        @endphp
+                                    @endif
+                                @endfor
+                            </tr>
+                        @endfor
+                    </tbody>
+                </table>
+            </div>
 
-                    </table>
-                </div>
             </div>
             <!-- Modal -->
 
@@ -233,7 +267,6 @@
                                                     $time = ['08-10','10-12','12-14','14-16','16-18','18-20','20-22'];
                                                     $sum = 0
                                                 @endphp
-
                                                 @foreach($time as $t)
                                                     @php
                                                         $matched = false;
@@ -257,6 +290,10 @@
                                                                 <table>
                                                                     <thead>
                                                                         <thead>
+                                                                            <tr>
+                                                                                <th colspan="4">{{ date('M', strtotime($ls['tanggal'])); }}</th>
+                                                                                <th colspan="4">{{ date('Y', strtotime($ls['tanggal'])); }}</th>
+                                                                            </tr>
                                                                             <tr>
                                                                                 <th>Senin</th>
                                                                                 <th>Selasa</th>
@@ -365,7 +402,15 @@
                                                                                                 <option value="20-22" {{ $ls->live_session == '20-22' ? 'selected' : '' }}>20:00 - 22:00</option>
                                                                                                 <option value="22-00" {{ $ls->live_session == '22-00' ? 'selected' : '' }}>22:00 - 00:00</option>
                                                                                             </select>
-
+                                                                                        </div>
+                                                                                        <div class="form-group">
+                                                                                            <label for="Client">Client:</label>
+                                                                                            <select class="form-control" id="client" name="client">
+                                                                                                @foreach ($client as $cl)
+                                                                                                <option value="{{$cl->id}}" {{ $cl->id == $ls->client ? 'selected' : '' }}>{{$cl->nama_client}}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                        </div>
                                                                                         <div class="form-group">
                                                                                             <label for="harga">Harga</label>
                                                                                             <input required type="text" class="form-control" id="harga" name="harga" value="{{ $ls->harga }}">
@@ -376,7 +421,7 @@
                                                                                         <div class="form-group">
                                                                                             <label for="paymentStatus">Payment Status:</label>
                                                                                             <select name="live_status" class="form-control" id="">
-                                                                                                <option value="Selesai" {{ $ls->payment_status == 'Lunasgk' ? 'selected' : '' }}>Lunas</option>
+                                                                                                <option value="Selesai" {{ $ls->payment_status == 'Lunas' ? 'selected' : '' }}>Lunas</option>
                                                                                                 <option value="Pending" {{ $ls->payment_status == 'Pending' ? 'selected' : '' }}>Pending</option>
                                                                                             </select>
                                                                                         </div>

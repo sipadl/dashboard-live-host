@@ -22,6 +22,7 @@ Auth::routes();
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('home');
 Route::prefix('/admin')->group(function () {
     Route::get('/',[App\Http\Controllers\MainController::class, 'index'])->name('main.admin');
+    Route::get('/total/{id}',[App\Http\Controllers\MainController::class, 'totalHarga'])->name('client.total');
     Route::get('/schedule/{id}',[App\Http\Controllers\MainController::class, 'schedule'])->name('client.jadwal');
     Route::post('post/schedule/{id}',[App\Http\Controllers\MainController::class, 'postJadwal'])->name('client.jadwal.post');
     Route::post('post/schedule/{id}/update', [App\Http\Controllers\MainController::class,'updateJadwal'])->name('jadwal.put');

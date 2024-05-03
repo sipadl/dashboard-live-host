@@ -162,6 +162,7 @@ class MainController extends Controller
 
     public function postJadwal($id, Request $request) {
         $post = $request->except('_token');
+        $post['host'] = $id;
         Lists::create($post);
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan.');
     }
@@ -172,6 +173,13 @@ class MainController extends Controller
         $list->update($request->except('_token'));
         return redirect()->back()->with('success', 'Jadwal berhasil diubah.');
 
+    }
+
+    public function totalHarga($id) {
+        $data = Host::where('id', $id)->first();
+        $client = Client::get();
+        $list = Lists::where('host', $data->id)->get();
+        return view('pages.client.total', compact('data','list','client'));
     }
 
 }
