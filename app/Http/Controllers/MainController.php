@@ -106,6 +106,11 @@ class MainController extends Controller
         $lists = Lists::get();
         return view('pages.base.host', compact('data','lists'));
     }
+    public function hargapage() {
+        $data = Host::get();
+        $lists = Lists::get();
+        return view('pages.base.total', compact('data','lists'));
+    }
 
     public function newHost() {
         return view('pages.base.addhost');

@@ -10,6 +10,7 @@
       <ul class="treeview-menu">
         <li class="active"><a href="{{route('main.admin.host')}}"><i class="fa fa-circle-o"></i> Host</a></li>
         <li><a href="{{route('client')}}"><i class="fa fa-circle-o"></i> Client</a></li>
+        <li><a href="{{route('client.total.page')}}"><i class="fa fa-circle-o"></i> Total Data Harga</a></li>
       </ul>
     </li>
     {{-- <li class="treeview">

@@ -276,7 +276,7 @@
                                                         @php
                                                             if ($ls->live_session == $t) {
                                                                 $matched = true;
-                                                                $host = DB::table('clients')->where('id', $data->id)->first();
+                                                                $host = DB::table('clients')->where('id', $ls->client)->first();
                                                                 $sum += $ls->harga;
                                                             }
                                                         @endphp
@@ -463,11 +463,6 @@
                                                         </tr>
                                                     @endif
                                                 @endforeach
-
-                                                <tr>
-                                                    <td colspan="6">Total</td>
-                                                    <td colspan="">{{ $sum }}</td>
-                                                </tr>
                                             </tbody>
 
 
