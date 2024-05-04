@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('kelamin', ['Laki-laki', 'Perempuan']);
             $table->string('address');
             $table->integer('days');
-            $table->string('hanphone');
+            $table->string('handphone');
             $table->string('niche');
             $table->string('other')->nullable();
             $table->timestamps();

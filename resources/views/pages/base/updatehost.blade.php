@@ -25,7 +25,7 @@
                 <label for="images">Gambar Host</label>
                 <div class="input-group">
                     <div class="custom-file">
-                        <input required type="file" name="images" class="custom-file-input" id="customFile">
+                        <input type="file" name="images" class="custom-file-input" id="customFile">
                         <label class="custom-file-label" for="customFile">Pilih gambar</label>
                     </div>
                 </div>
@@ -38,9 +38,9 @@
 
             <div class="form-group">
                 <label for="gender">Jenis Kelamin Host</label>
-                <select name="gender" class="form-control">
-                    <option value="Laki-laki" {{$data->gender == 'Laki-laki' ? 'selected' : ''}}>Laki-laki</option>
-                    <option value="Perempuan" {{$data->gender == 'Perempuan' ? 'selected' : ''}}>Perempuan</option>
+                <select name="kelamin" class="form-control">
+                    <option value="Laki-laki" {{$data->kelamin == 'Laki-laki' ? 'selected' : ''}}>Laki-laki</option>
+                    <option value="Perempuan" {{$data->kelamin == 'Perempuan' ? 'selected' : ''}}>Perempuan</option>
                 </select>
             </div>
 
@@ -56,7 +56,7 @@
 
             <div class="form-group">
                 <label for="hanphone">No Hanphone</label>
-                <input type="text" value="{{$data->hanphone}}" placeholder="No Hanphone" required name="hanphone" class="form-control">
+                <input type="text" value="{{$data->handphone}}" placeholder="No Handphone" required name="handphone" class="form-control">
             </div>
 
             <div class="form-group">
