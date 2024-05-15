@@ -175,8 +175,10 @@ class MainController extends Controller
 
     public function updateJadwal($id , Request $request) {
         $list = Lists::where('id', $id)->first();
+        $req = $request->except('_token');
+        $req['harga'] = str_replace(['Rp', '.', ' '], '', $request['harga']);
+        $list->update($req);
 
-        $list->update($request->except('_token'));
         return redirect()->back()->with('success', 'Jadwal berhasil diubah.');
 
     }
