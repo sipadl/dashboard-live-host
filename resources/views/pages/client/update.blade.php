@@ -9,7 +9,6 @@
     <div class="box-body">
         <form method="POST" action="{{ route('client.post.update', $client->id) }}">
             @csrf
-            @method('PUT')
 
             <div class="form-group row">
                 <label for="nama_client" class="col-md-2 col-form-label">Nama Client</label>
