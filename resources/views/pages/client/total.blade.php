@@ -68,10 +68,10 @@ $sum += $ls->harga * $days;
 </tr>
 @endforeach
 
-<tr>
+{{-- <tr>
 <td colspan="6">Total</td>
 <td colspan="">{{ 'Rp. '.number_format($sum) }}</td>
-</tr>
+</tr> --}}
 </tbody>
 </table>
 </div>

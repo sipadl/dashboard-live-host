@@ -161,11 +161,12 @@ class MainController extends Controller
     public function schedule($id) {
         $data = Host::where('id', $id)->first();
         $client = Client::get();
-        $list = Lists::where('client', $id)->get();
+        $list = Lists::where('host', $id)->get();
         return view('pages.client.jadwal', compact('data', 'list','client'));
     }
 
     public function postJadwal($id, Request $request) {
+        // dd($request);
         $post = $request->except('_token');
         $post['harga'] = str_replace(['Rp', '.', ' '], '', $request['harga']);
         $post['host'] = $id;
