@@ -167,6 +167,7 @@ class MainController extends Controller
 
     public function postJadwal($id, Request $request) {
         $post = $request->except('_token');
+        $post['harga'] = str_replace(['Rp', '.', ' '], '', $request['harga']);
         $post['host'] = $id;
         Lists::create($post);
         return redirect()->back()->with('success', 'Jadwal berhasil ditambahkan.');

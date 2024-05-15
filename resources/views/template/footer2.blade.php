@@ -207,6 +207,58 @@
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset('bower_components/jquery-ui/jquery-ui.min.js') }}"></script>
+
+
+<script>
+    var rupiah = $('.rupiah');
+    rupiah.on('input', function(e) {
+        function formatRupiah(angka, prefix) {
+        console.log(angka);
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+          separator = sisa ? "." : "";
+          rupiah += separator + ribuan.join(".");
+        }
+        rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix == undefined ? rupiah : rupiah ? prefix + rupiah : "";
+      }
+        rupiah.val(formatRupiah(rupiah.val(), "Rp. "));
+    });
+    $(document).ready(function() {
+      var rupiahz = $('.rupiahz');
+      rupiahz.val(formatRupiah(rupiahz.val(), "Rp. "));
+
+
+      rupiahz.on('input', function() {
+        var value = $(this).val();
+        $(this).val(formatRupiah(value, "Rp. "));
+      });
+
+      /* Fungsi formatRupiah */
+      function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+          var separator = sisa ? "." : "";
+          rupiah += separator + ribuan.join(".");
+        }
+        rupiah = split[1] !== undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix === undefined ? rupiah : rupiah ? prefix + rupiah : "";
+      }
+    });
+  </script>
+
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
@@ -245,40 +297,5 @@
     let table = new DataTable('#myTable');
 </script>
 
-<script>
-    function prevMonth() {
-        var monthSelect = document.getElementById('month');
-        var yearSelect = document.getElementById('year');
-
-        if (monthSelect.selectedIndex === 0) {
-            monthSelect.selectedIndex = 11;
-            yearSelect.selectedIndex -= 1;
-        } else {
-            monthSelect.selectedIndex -= 1;
-        }
-    }
-
-    function nextMonth() {
-        var monthSelect = document.getElementById('month');
-        var yearSelect = document.getElementById('year');
-
-        if (monthSelect.selectedIndex === 11) {
-            monthSelect.selectedIndex = 0;
-            yearSelect.selectedIndex += 1;
-        } else {
-            monthSelect.selectedIndex += 1;
-        }
-    }
-
-    function go() {
-        var monthSelect = document.getElementById('month');
-        var yearSelect = document.getElementById('year');
-
-        var selectedMonth = monthSelect.options[monthSelect.selectedIndex].value;
-        var selectedYear = yearSelect.options[yearSelect.selectedIndex].value;
-
-        window.location.href = "?month=" + selectedMonth + "&year=" + selectedYear;
-    }
-</script>
 </body>
 </html>

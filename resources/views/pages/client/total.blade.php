@@ -54,7 +54,7 @@ $sum += $ls->harga * $days;
 <tr>
 <td>{{ $no++ }}</td>
 <td>{{ $ls->live_session }}</td>
-<td>{{ $ls->harga }}</td>
+<td>{{ 'Rp. '.number_format($ls->harga) }}</td>
 <td>{{ $host_2->name }}</td>
 <td>{{ $host->nama_client }}</td>
 <td>{{ $host->hanphone_client }}</td>
@@ -62,7 +62,7 @@ $sum += $ls->harga * $days;
 <td>{{ $ls->tanggal }}</td>
 <td>{{ $ls->sampai_tanggal }}</td>
 <td>{{ $days }}</td>
-<td>{{ $days * $ls->harga }}</td>
+<td>{{ 'Rp. '.number_format($days * $ls->harga) }}</td>
 <td>{{ $ls->payment_status }}</td>
 <td>{{ $ls->live_status }}</td>
 </tr>
@@ -70,7 +70,7 @@ $sum += $ls->harga * $days;
 
 <tr>
 <td colspan="6">Total</td>
-<td colspan="">{{ $sum }}</td>
+<td colspan="">{{ 'Rp. '.number_format($sum) }}</td>
 </tr>
 </tbody>
 </table>

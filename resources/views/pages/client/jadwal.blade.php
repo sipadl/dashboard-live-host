@@ -204,7 +204,7 @@
                                     <input
                                         type="text"
                                         required
-                                        class="form-control"
+                                        class="form-control rupiah"
                                         id="harga"
                                         placeholder="Masukkan Harga"
                                         name="harga"></div>
@@ -283,7 +283,7 @@
 
                                                         @if($matched)
                                                             <tr>
-                                                                <td>{{ $ls->harga }}</td>
+                                                                <td>{{ 'Rp. '.number_format($ls->harga) }}</td>
                                                                 <td>{{ $ls->live_session }}</td>
                                                                 <td>{{ $host->nama_client }}</td>
                                                                 <td>
@@ -413,7 +413,7 @@
                                                                                         </div>
                                                                                         <div class="form-group">
                                                                                             <label for="harga">Harga</label>
-                                                                                            <input required type="text" class="form-control" id="harga" name="harga" value="{{ $ls->harga }}">
+                                                                                            <input required type="text" class="form-control rupiahz" id="harga" name="harga" value="{{ $ls->harga }}">
                                                                                         </div>
                                                                                         <div class="form-group">
                                                                                             <label for="notes">Notes:</label>
